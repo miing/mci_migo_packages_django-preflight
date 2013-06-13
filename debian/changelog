@@ -1,0 +1,21 @@
+django-preflight (0.1.4) precise; urgency=low
+
+  * Added display of settings on the preflight page
+  * Added configurable list of settings to hide
+  * Changed default base tamplate to Django admin base
+  * Added platform to default versions
+
+ -- Łukasz Czyżykowski <lukasz.czyzykowski@canonical.com>  Wed, 03 Oct 2012 09:45:22 +0000
+
+django-preflight (0.1.1) lucid; urgency=low
+
+  * Use RequestContext instance when rendering the overview view
+  * Fixed small bug causing wrong name of check to be saved.
+
+ -- Ricardo Kirkner <ricardo.kirkner@canonical.com>  Tue, 04 Oct 2011 11:21:19 -0300
+
+django-preflight (0.1) lucid; urgency=low
+
+  * Initial release
+
+ -- Łukasz Czyżykowski <lukasz.czyzykowski@canonical.com>  Mon, 07 Feb 2011 11:21:52 +0100

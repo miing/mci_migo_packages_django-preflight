@@ -1,0 +1,26 @@
+Source: django-preflight
+Section: python
+Priority: extra
+Build-Depends: cdbs (>= 0.4.43),
+ debhelper (>= 6),
+ python,
+ python-central (>= 0.6),
+ python-setuptools
+Maintainer: Łukasz Czyżykowski <lukasz.czyzykowski@canonical.com>
+Standards-Version: 3.8.3
+XS-Python-Version: current
+
+Package: python-django-preflight
+Architecture: all
+XB-Python-Version: ${python:Versions}
+Depends: ${misc:Depends}, ${python:Depends},
+ python-django (>= 1.0.2)
+Description: Base for creating pre-flight checks page for Django projects.
+ This project provides basic support for creating pre-flight checks page for Django
+ based projects. Such page consists with series of checks, provided by the project
+ which are executed each time the page is accessed and which gives a quick overview
+ of proper configuration of access to external services.
+ .
+ Additionally the page gives a list of versions of various libraries used by the
+ project. Same as with the checks which can be further extended by the project
+ specific information.

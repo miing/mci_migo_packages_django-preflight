@@ -1,0 +1,7 @@
+*.egg
+build
+dist
+.tox
+*.egg-info
+doc/_build
+preflight.wp*

@@ -1,0 +1,57 @@
+{# Copyright 2010 Canonical Ltd.  This software is licensed under the  #}
+{# GNU Affero General Public License version 3 (see the file LICENSE). #}
+<html>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+      #content { 
+        font: 13.34px helvetica, arial, freesans, clean, sans-serif;
+        width: 600px;
+        margin: 32px auto;
+        border: 1px solid #ddd;
+        padding: 2em;
+        background-color: #f0f0f0;
+      }
+      #content p {
+        margin-top: 32px;
+        border-top: 1px solid #999;
+        text-align: center;
+      }
+      #content h1 {
+        margin: 64px 0 32px;
+        border-bottom: 3px solid #555;
+      }
+      #content h2 {
+        margin: 32px 0;
+        border-bottom: 3px solid #999;
+      }
+      #content table {
+        padding: 0;
+        border-spacing: 0;
+        width: 100%;
+      }
+      #content table th {
+        border-bottom: 1px solid #aaa;
+      }
+      #content table td,
+      #content table th {
+        padding: 0.3em;
+      }
+      #content .ok {
+        color: green;
+      }
+      #content .error {
+        color: red;
+      }
+      #content td.status {
+        text-align: center;
+      }
+      #content td.description {
+        font-size: 80%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content">{% block content %}{% endblock %}</div>
+  </body>
+</html>

@@ -1,0 +1,127 @@
+{% extends preflight_base_template %}
+
+{# Copyright 2010 Canonical Ltd.  This software is licensed under the  #}
+{# GNU Affero General Public License version 3 (see the file LICENSE). #}
+
+{% load i18n %}
+
+{% block title %}{% trans "Application Pre-Flight Checks" %}{% endblock %}
+
+{% block content %}
+<div id="preflight">
+  <h1>{% trans "Pre-flight Applications Checks" %}</h1>
+
+  <ul id="links">
+    {% for application in applications %}
+      <li><a href="#{{ application.name|slugify }}">{{ application.name }}</a></li>
+    {% endfor %}
+    <li><a href="#versions">Versions</a></li>
+    <li><a href="#settings">Settings</a></li>
+    {% if switches %}
+    <li><a href="#switches">Switches</a></li>
+    {% endif %}
+  </ul>
+
+  {% for application in applications %}
+  <a href="#links" style="text-decoration: none;">
+    <h2 id="{{ application.name|slugify }}">{{ application.name }}</h2>
+  </a>
+  <table class="{{ preflight_table_class }}">
+    <thead>
+      <tr>
+        <th>{% trans "Name" %}</th>
+        <th>{% trans "Description" %}</th>
+        <th>{% trans "Status" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for check in application.checks %}
+      <tr>
+        <td><strong>{{ check.name }}</strong></td>
+        <td class="description">{{ check.description }}</td>
+        <td class="status">
+        {% if check.passed %}
+          <span class="ok" title="{% trans "Passed" %}">☑</span>
+        {% else %}
+          <span class="error" title="{% trans "Error" %}">☒</span>
+        {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endfor %}
+
+  <a href="#links" style="text-decoration: none;">
+    <h1 id="versions">{% trans "Versions" %}</h1>
+  </a>
+  <table class="{{ preflight_table_class }}">
+    <thead>
+      <tr>
+        <th>{% trans "Library/Package" %}</th>
+        <th>{% trans "Version" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in versions %}
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.version }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="#links" style="text-decoration: none;">
+    <h1 id="settings">{% trans "Settings" %}</h1>
+  </a>
+  <dl class="{{ preflight_table_class }}">
+  {% for setting in settings %}
+    <dt><b>{{ setting.name }}</b></dt>
+    <dd>{{ setting.value }}</dd>
+    {% if setting.location %}<dd>Location: {{ setting.location}}</dd>{% endif %}
+  {% endfor %}
+  </dl>
+
+  {% if switches %}
+  <a href="#links" style="text-decoration: none;">
+    <h1 id="switches">{% trans "Switches" %}</h1>
+  </a>
+    <table id="switches-table" class="{{ preflight_table_class }}">
+      <thead>
+        <tr>
+          <th>{% trans "Name" %}</th>
+          <th>{% trans "Description" %}</th>
+          <th>{% trans "Conditions" %}</th>
+          <th>{% trans "Status" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for type, type_switches in switches.items %}
+        <tr><th colspan="4">{{ type }}</th></tr>
+        {% for switch in type_switches %}
+        <tr class="switch">
+            <td>{{ switch.name }}</td>
+            <td>{{ switch.description }}</td>
+            <td>
+                {% if switch.conditions %}
+                <ul>
+                    {% for condition in switch.conditions  %}
+                    <li>{{ condition|first }}: {{ condition|last }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </td>
+            <td>{{ switch.status_text }}</td>
+        {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+  {% else %}
+    <p>No switches.</p>
+  {% endif %}
+</div>
+
+<p>View generated at: {{ now }}</p>
+{% endblock %}
